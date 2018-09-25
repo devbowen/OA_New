@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group>
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/nav_home"
+            android:title="@string/nav_home" />
+
+
+        <item android:title="@string/nav_function">
+            <menu>
+
+                <item
+                    android:id="@+id/nav_notice"
+                    android:icon="@drawable/nav_notice"
+                    android:title="@string/nav_announcement" />
+                <item
+                    android:id="@+id/nav_employee"
+                    android:icon="@drawable/nav_employee"
+                    android:title="@string/nav_employee" />
+                <item
+                    android:id="@+id/nav_leave"
+                    android:icon="@drawable/nav_leave"
+                    android:title="@string/nav_ask_for_leave" />
+
+                <item
+                    android:id="@+id/nav_me"
+                    android:icon="@drawable/nav_me"
+                    android:title="@string/nav_personal_center" />
+
+            </menu>
+        </item>
+
+    </group>
+</menu>
