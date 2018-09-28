@@ -20,9 +20,6 @@ public interface LoginContract {
     }
 
     interface LoginView extends BaseView {
-        void showProgress();
-
-        void hideProgress();
 
         void loginSuccess();
 

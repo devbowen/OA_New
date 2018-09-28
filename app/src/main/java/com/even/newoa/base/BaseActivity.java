@@ -16,8 +16,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.even.newoa.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +39,26 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     private static final String TAG = "BaseActivity";
     private static final int REQUEST_CODE = 1;
     private List<String> permissionList = new ArrayList<>();
+    private ProgressBar progressBar;
+
+    @Override
+    public void setContentView(int layoutResID) {
+        View view = getLayoutInflater().inflate(R.layout.base_activity, null);
+        //设置填充activity_base布局
+        progressBar = view.findViewById(R.id.base_progress_bar);
+        super.setContentView(view);
+        //加载子类Activity的布局
+        initDefaultView(layoutResID);
+    }
+
+    private void initDefaultView(int layoutResId) {
+        FrameLayout container = findViewById(R.id.base_child_container);
+        View childView = LayoutInflater.from(this).inflate(layoutResId, null);
+        container.addView(childView, 0);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             View decorView = getWindow().getDecorView();
             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
@@ -48,6 +69,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
             requestPermissions();
             Log.d(TAG, "onCreate: requestPermissions");
         }
+        super.onCreate(savedInstanceState);
     }
 
     private void requestPermissions() {
@@ -143,12 +165,14 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
 
     @Override
     public void showLoading() {
-
+        progressBar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override
     public void hideLoading() {
-
+        progressBar.setVisibility(View.INVISIBLE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override

@@ -46,19 +46,6 @@ public class BaseFragment extends Fragment {
         fragmentUtils = FragmentUtils.getInstance();
         fragmentManager = getActivity().getSupportFragmentManager();
         toolbar = getActivity().findViewById(R.id.toolbar);
-
-//        if (savedInstanceState != null) {
-//            Log.d(TAG, "onCreate: 不为空 ");
-//            boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
-//
-//            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//            if (isSupportHidden) {
-//                ft.hide(this);
-//            } else {
-//                ft.show(this);
-//            }
-//            ft.commit();
-//        }
         super.onCreate(savedInstanceState);
     }
 

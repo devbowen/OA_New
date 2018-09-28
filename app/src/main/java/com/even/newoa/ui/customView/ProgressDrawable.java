@@ -17,7 +17,6 @@ import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.animation.AccelerateInterpolator;
 
 public class ProgressDrawable extends Drawable {
@@ -83,7 +82,6 @@ public class ProgressDrawable extends Drawable {
             canvas.rotate(degrees, centerX, centerY);
             canvas.drawArc(rectF, -90f, 100f, false, mPaint);
             canvas.restore();
-            Log.d(TAG, "draw: ");
             return;
         }
         if (stage == STAGE_SUCCESS) {

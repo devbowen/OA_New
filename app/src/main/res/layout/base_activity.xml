@@ -3,19 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ProgressBar
-        android:id="@+id/progress_bar_ee_manage"
+        android:id="@+id/base_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
-    <ListView
-        android:id="@+id/lv_all_ee"
+    <FrameLayout
+        android:id="@+id/base_child_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </ListView>
+    </FrameLayout>
 
 </RelativeLayout>

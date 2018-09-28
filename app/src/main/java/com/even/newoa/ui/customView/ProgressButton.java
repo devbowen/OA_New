@@ -8,6 +8,8 @@ public class ProgressButton extends AppCompatButton {
 
     private static final String TAG = "ProgressButton";
     private ProgressDrawable drawable;
+    private float textSize;
+    private int textSizeInt;
 
     public ProgressButton(Context context) {
         super(context);
@@ -25,10 +27,15 @@ public class ProgressButton extends AppCompatButton {
     }
 
     private void init() {
-        drawable = new ProgressDrawable(getTextSize());
+        textSize = getTextSize();
+        drawable = new ProgressDrawable(textSize);
+        //textSizeInt = Math.round(textSize);
     }
 
     public void startLoad() {
+
+//        drawable.setBounds(80,textSizeInt,textSizeInt,textSizeInt);
+//        setCompoundDrawables(drawable, null, null, null);
         setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
         setCompoundDrawablePadding(15);
         drawable.startRotate();

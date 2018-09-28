@@ -8,15 +8,11 @@ import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
-public interface LoginApis {
+public interface EmployeeApis {
 
     String HOST = "http://192.168.2.157:8080";
 
-//    @Headers({"Content-Type: application/json", "Accept: application/json"})
-//    @POST("/tokens")
-//    Call<ResponseBody> login(@Body RequestBody body);
-
     @Headers({"Content-Type: application/json", "Accept: application/json"})
-    @POST("/tokens")
-    Observable<LoginResponse> login(@Body RequestBody body);
+    @POST("/employee?offset=2&limit=3")
+    Observable<LoginResponse> getAll(@Body RequestBody body);
 }

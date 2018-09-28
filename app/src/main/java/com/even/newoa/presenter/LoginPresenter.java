@@ -41,8 +41,6 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
             return;
         }
 
-
-        loginView.showProgress();
         loginModel.login(userAccount, password, new HttpCallback<String>() {
             @Override
             public void onSuccess() {
@@ -68,7 +66,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
             @Override
             public void onComplete() {
                 if (isViewAttached()) {
-                    loginView.hideProgress();
+
                 }
             }
         });

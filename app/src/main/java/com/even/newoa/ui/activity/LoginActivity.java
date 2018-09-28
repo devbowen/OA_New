@@ -7,20 +7,19 @@ import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.even.newoa.R;
 import com.even.newoa.base.BaseActivity;
 import com.even.newoa.base.contract.login.LoginContract;
 import com.even.newoa.presenter.LoginPresenter;
+import com.even.newoa.ui.customView.ProgressButton;
 
 public class LoginActivity extends BaseActivity implements LoginContract.LoginView, View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
 
-    private Button loginBtn;
+    private ProgressButton loginBtn;
     private TextInputEditText accountEt;
     private TextInputEditText passwordEt;
     private String account = "";
@@ -32,13 +31,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         if (this.getSharedPreferences("login", MODE_PRIVATE).getBoolean("isLogin", false)) {
-            loginSuccess();
+            startMainActivity();
         }
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+        super.onCreate(savedInstanceState);
 
         initViews();
         initEvents();
@@ -109,26 +107,20 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
             } else if ("".equals(password)) {
                 passwordWrapper.setError(getString(R.string.password_empty));
             } else {
+                loginBtn.startLoad();
                 loginPresenter.loginVerification(account, password);
             }
         }
     }
 
     @Override
-    public void showProgress() {
-        //TODO: 改成仿知乎登陆的效果，自定义button
-        progressBar.setVisibility(View.VISIBLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.INVISIBLE);
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
-
-    @Override
     public void loginSuccess() {
+        loginBtn.stopLoad();
+        loginBtn.loadSuccess();
+        startMainActivity();
+    }
+
+    private void startMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -136,6 +128,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
 
     @Override
     public void loginFail(String msg) {
+        loginBtn.stopLoad();
+        loginBtn.loadFail();
         showToast(msg);
     }
 
